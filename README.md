@@ -6,7 +6,7 @@ Camera Ready code for the **ICML 2026 Spotlight** paper [Falling Trees: A Model 
 Requires Python 3.10 or newer and a C++17 compiler (`g++`). From an environment that is already active, install this repository. That installs the Python dependencies and compiles the GraviTree source code. 
 
 ```bash
-python -m pip install .
+pip install .
 ```
 
 `uv pip install .` does the same thing into the active environment. `pybind11` is a build dependency, so the installer provides it while compiling; you do not install it separately.

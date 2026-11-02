@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77", "pybind11>=2.13"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "falling_trees"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "gamchanger>=0.1.13",
+    "gmpy2>=2.2.2",
+    "gosdt>=1.0.4",
+    "interpret>=0.7.4",
+    "ipykernel>=7.1.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.7",
+    "mlxtend>=0.23.4",
+    "networkx>=3.4",
+    "numpy>=1.26",
+    "pandas>=2.3.3",
+    "pybind11>=2.13",
+    "scikit-learn>=1.7.2",
+    "tqdm>=4.64",
+    "treefarms>=0.2.4",
+]
+
+[tool.setuptools]
+packages = ["falling_trees"]
