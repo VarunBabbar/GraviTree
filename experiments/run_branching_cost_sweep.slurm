@@ -13,8 +13,6 @@
 
 mkdir -p logs
 
-cd /usr/xtmp/vb97/FRL_Rashomon_Set/falling-models/experiments || exit 1
-
 # Fixed hyperparameters
 DEPTH=5
 LAM=0.005
