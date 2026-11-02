@@ -19,7 +19,7 @@ Run this from the repository root. `binarize=True` turns continuous columns into
 import pandas as pd
 from falling_trees.gravitree import GraviTree
 
-df = pd.read_csv("data/benchmark/compas.csv")
+df = pd.read_csv("path_to_gravitree_/../../data/benchmark/compas.csv")
 X = df.drop(columns=["two_year_recid"])
 y = df["two_year_recid"].astype(int)
 

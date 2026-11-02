@@ -20,7 +20,7 @@ EXTENSION_SUFFIX := .so
 endif
 
 SRC = gravitree.cpp
-TARGET = falling_rashomon_cpp$(EXTENSION_SUFFIX)
+TARGET = gravitree_cpp$(EXTENSION_SUFFIX)
 
 all: $(TARGET)
 
