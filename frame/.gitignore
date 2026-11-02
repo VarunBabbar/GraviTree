@@ -1,0 +1,17 @@
+# ignore Python cache files
+__pycache__/
+
+# ignore pytest cache files
+.pytest_cache/
+
+archive/
+
+data/
+
+failed_attempt/
+
+experiments_data/
+
+*.ipynb
+
+.DS_Store
