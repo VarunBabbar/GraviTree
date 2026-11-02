@@ -27,7 +27,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from falling_trees.binarize_dataset import binarize_dataset
-from falling_trees import falling_rashomon_cpp as gravitree
+import falling_trees.gravitree_cpp as gravitree_cpp
 from falling_trees.check_cpp_rset_falling import load_cpp_rset
 from falling_trees.frl_rashomon_set_alg_falling_constraint_v2 import (
     normalized_colless_index,
@@ -118,7 +118,7 @@ def run_gravitree_experiment(
         print(f"max_cache_size: {max_cache_size}")
         print(f"cache_bucket_size: {cache_bucket_size}")
         print(f"recurse_on_lower_prob_first: {recurse_on_lower_prob_first}")
-        result = gravitree.run_from_xy(
+        result = gravitree_cpp.run_from_xy(
             X_train,
             y_train,
             lam=lam,

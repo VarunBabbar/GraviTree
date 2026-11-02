@@ -21,7 +21,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from falling_trees.binarize_dataset import binarize_dataset
-from falling_trees import falling_rashomon_cpp as gravitree
+import falling_trees.gravitree_cpp as gravitree_cpp
 from falling_trees.check_cpp_rset_falling import load_cpp_rset
 from utils import (
     expected_decision_sparsity_falling_tree,
@@ -193,7 +193,7 @@ def main():
                 dump_path = tmp_file.name
 
             start_time = time.time()
-            result = gravitree.run_from_xy(
+            result = gravitree_cpp.run_from_xy(
                 X_train_df.values,
                 y_train.values,
                 lam=args.lam,

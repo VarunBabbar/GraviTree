@@ -23,7 +23,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from falling_trees.binarize_dataset import binarize_dataset
-from falling_trees import falling_rashomon_cpp as gravitree
+import falling_trees.gravitree_cpp as gravitree_cpp
 from falling_trees.gravitree import GraviTree
 
 

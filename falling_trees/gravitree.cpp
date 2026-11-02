@@ -2325,7 +2325,7 @@ static py::dict run_from_xy(
   return result;
 }
 
-PYBIND11_MODULE(falling_rashomon_cpp, m) {
+PYBIND11_MODULE(gravitree_cpp, m) {
   m.doc() = "Pybind11 wrapper for falling tree Rashomon set C++ implementation";
   m.def("predict", &predict,
         py::arg("tree"),

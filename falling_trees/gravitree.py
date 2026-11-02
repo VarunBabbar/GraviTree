@@ -1,18 +1,12 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
 import tempfile
 import os
-import sys
 import json
 import copy
 import numpy as np
 import pandas as pd
 
-# Add parent directory to path so we can import falling_trees
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(script_dir)
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
-from falling_trees import falling_rashomon_cpp as gravitree
+import falling_trees.gravitree_cpp as gravitree_cpp
 from falling_trees.binarize_dataset import binarize_dataset, cut
 from falling_trees.tree_predict import predict_proba_falling_tree
 
@@ -109,7 +103,7 @@ class GraviTree(ClassifierMixin, BaseEstimator):
 
         with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tmp_file:
             dump_path = tmp_file.name
-        ft_rset = gravitree.run_from_xy(X_train,
+        ft_rset = gravitree_cpp.run_from_xy(X_train,
                                         y_train,
                                         eps=self.eps,
                                         depth=self.depth,
@@ -170,7 +164,7 @@ class GraviTree(ClassifierMixin, BaseEstimator):
         X = self._transform(X)
         if isinstance(X, pd.DataFrame):
             X = X.values
-        return gravitree.predict(self.ft_rset[tree_idx], X, threshold=threshold)
+        return gravitree_cpp.predict(self.ft_rset[tree_idx], X, threshold=threshold)
 
     def score(self, X, y, sample_weight=None, tree_idx=0, threshold=0.5):
         """Computes the accuracy of the model on the given test data and labels.
