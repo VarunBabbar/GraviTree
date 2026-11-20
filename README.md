@@ -2,23 +2,28 @@
 ## GraviTree 
 Camera ready code + experiments for the **ICML 2026 Spotlight** paper [Falling Trees: A Model Class for Interpretable Risk Prioritization](https://arxiv.org/abs/2609.23780). The experiment code is included to make replication of the results of our paper easier - it includes code for running comparisons between falling trees, regular trees, and rule lists, as well as hyperparameter sweeps of the model. 
 
-
 # Algorithm
 
-A **falling tree** is a decision tree whose leaf risks decrease as you move away from the root: along every root-to-leaf path, leaves that branch off earlier have higher positive-class probability than leaves that branch off later. High-risk cases are therefore identified with the fewest conditions. Falling rule lists are the special case with a single path.
+A **falling tree** is a decision tree in which higher-risk leaves sit closer to the root. Specifically, a leaf that branches off a path must have a risk at least as high as every leaf below it on that side. As a result, the highest-risk cases are identified with the fewest conditions. Falling rule lists are the special case with a single path.
 
-**Objective.** GraviTree minimizes
+**Example** (illustrative):
 
-    L(T) = misclassification rate + branching_cost × H(T)
+    priors > 3?
+    ├── yes → risk 0.71
+    └── no: age < 25?
+        ├── yes: juvenile crimes > 0?
+        │   ├── yes → risk 0.58
+        │   └── no  → risk 0.40
+        └── no: male?
+            ├── yes → risk 0.33
+            └── no  → risk 0.19
 
-where H(T) counts internal nodes whose children are *both* internal. `branching_cost` controls the model's shape: a high value forces a falling rule list, a low value allows a full tree, and values in between give trees that are almost rule lists (see the figures below). `depth` bounds tree depth, and `min_support` requires every leaf to cover at least that fraction of the data. The falling constraint is enforced as a hard constraint.
+The leaf at 0.71 is valid because it is at least the maximum risk in its sibling subtree (0.58). If it were 0.50, the tree would not be falling.
 
-**Search.** GraviTree uses dynamic programming with bounds over subproblems defined by (data subset, remaining depth, risk ceiling). The risk ceiling is the probability of the most recent leaf adjacent to the current path. A node's leaf probability must be at least the maximum leaf probability in its sibling subtree, which gives a local check for the global constraint. This lets GraviTree:
-- **prune splits early:** any split whose child exceeds the inherited ceiling can never yield a falling tree.
-- **couple siblings:** the higher-risk child is solved first, and its leaf probability becomes a tighter ceiling for the other child.
-- **bound and cache:** each recursive call gets a loss budget and stops as soon as lower bounds exceed it. Solutions are cached by (subset, depth, quantized ceiling).
+**Objective.** GraviTree minimizes misclassification + `branching_cost` × (number of nodes whose two children are both internal). A high `branching_cost` gives a rule list and a low one gives a full tree. `depth` bounds tree depth, and `min_support` sets the minimum fraction of data each leaf must cover.
 
-**Rashomon set.** Rather than a single tree, GraviTree returns every falling tree with loss ≤ (1 + `eps`) × optimal loss. It builds this set by recursively enumerating near-optimal subtrees for each child, then merging the sorted child sets under the remaining budget. Pairs that violate the falling constraint are dropped. The set is stored in `model.ft_rset`, sorted by loss, so `tree_idx=0` is the optimal tree.
+**Search.** GraviTree uses dynamic programming with bounds. Each subproblem carries a risk ceiling inherited from its ancestors. Splits that exceed the ceiling are pruned, and subproblems are cached by (subset, depth, quantized ceiling). It returns the **Rashomon set**: all falling trees with loss ≤ (1 + `eps`) × the optimal loss, stored in `model.ft_rset` and sorted by loss (`tree_idx=0` is the optimum).
+
 
 # Installation
 
