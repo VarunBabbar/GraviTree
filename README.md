@@ -1,3 +1,4 @@
+
 ## GraviTree 
 Camera ready code + experiments for the **ICML 2026 Spotlight** paper [Falling Trees: A Model Class for Interpretable Risk Prioritization](https://arxiv.org/abs/2609.23780). The experiment code is included to make replication of the results of our paper easier - it includes code for running comparisons between falling trees, regular trees, and rule lists, as well as hyperparameter sweeps of the model. 
 
@@ -29,3 +30,11 @@ i = 0  # index into model.ft_rset; 0 is the minimum-loss tree
 accuracy = model.score(X, y, tree_idx=i)
 model.print_tree(tree_idx=i)
 ```
+
+<img width="565" height="436" alt="Screenshot 2026-11-20 at 3 39 24 PM" src="https://github.com/user-attachments/assets/93fe60a0-7d07-449b-83bf-bf52920f2c76" />
+
+<img width="703" height="442" alt="Screenshot 2026-11-20 at 3 39 39 PM" src="https://github.com/user-attachments/assets/f79ae8be-cf6a-4908-8130-fce679ac8767" />
+
+<img width="725" height="365" alt="Screenshot 2026-11-20 at 3 39 55 PM" src="https://github.com/user-attachments/assets/f36ee0e2-848b-4556-837c-090234c397cc" />
+
+
