@@ -4,7 +4,7 @@ Camera ready code for the **ICML 2026 Spotlight** paper [Falling Trees: A Model 
 
 # Algorithm
 
-A **falling tree** is a decision tree in which higher-risk leaves sit closer to the root. Specifically, a leaf that branches off a path must have a risk at least as high as every leaf below it on that side. As a result, the highest-risk cases are identified with the fewest conditions. Falling rule lists are the special case with a single path.
+A **falling tree** is a decision tree in which higher-risk decisions are closer to the root. Specifically, a leaf that branches off a path must have a risk at least as high as every leaf below it on that side. As a result, the highest-risk cases are identified with the fewest conditions. Falling rule lists are the special case with a single path.
 
 **Example** (illustrative):
 
